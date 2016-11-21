@@ -15,11 +15,16 @@ public class PlayerDetect : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        collide = true;
-        print("TRU " + transform.name);
+        if (!other.isTrigger)
+        {
+            collide = true;
+        }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        collide = false;
+        if (!other.isTrigger)
+        {
+            collide = false;
+        }
     }
 }
