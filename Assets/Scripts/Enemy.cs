@@ -6,10 +6,12 @@ public class Enemy : MonoBehaviour {
     public float speed;
     public bool canMove, left, right, up, down;
     private PlayerDetect detectLeft, detectRight, detectUp, detectDown;
+    public int vida;
 
     public Vector2 direction;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         speed = GameManager.instance.enemySpeed;
 
         direction.Set(0, 0);
@@ -27,6 +29,11 @@ public class Enemy : MonoBehaviour {
         if (target != null) //&& Vector2.Distance()
         {
             GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, target.transform.position, speed) );
+        }
+
+        if (Input.GetButtonDown("Fire1"))        
+        {
+            Debug.Log("Yes");
         }
     }
 

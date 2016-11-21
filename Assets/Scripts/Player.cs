@@ -10,7 +10,7 @@ public class Player : NetworkBehaviour
     public float tileRange;
     public Vector2 direction, lastPosition;
     public bool canMove, left, right, up, down;
-
+    public int vida;
     private PlayerDetect detectLeft, detectRight, detectUp, detectDown;
 
     // Use this for initialization
