@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class GameManager : NetworkBehaviour {
     public static GameManager instance;
-    public float enemySpeed;
+    public float enemySpeed, spawnRatio;
     public List<GameObject> players = new List<GameObject>();
 
     public float gridSize = 0.32f;

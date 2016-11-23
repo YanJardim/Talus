@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
+using System.Collections.Generic;
 
-public class Spawner : MonoBehaviour {
+public class Spawner : NetworkBehaviour {
 
     public GameObject Enemy;
+    private float spawnRatio;
+    public List<GameObject> points = new List<GameObject>();
+
 
 	// Use this for initialization
 	void Start ()
     {
-        StartCoroutine(SpawnEnemy());
+        spawnRatio = GameManager.instance.spawnRatio;
+        StartCoroutine(SetPoints());
+        
 	}
 	
 	// Update is called once per frame
@@ -22,11 +29,19 @@ public class Spawner : MonoBehaviour {
     {
         while (true)
         {           
-            yield return new WaitForSeconds(10f);          
+            yield return new WaitForSeconds(spawnRatio);          
 
-            Instantiate(Enemy, this.transform.position, this.transform.rotation);          
+            GameObject e = Instantiate(Enemy, points[Random.Range(0, points.Count)].transform.position, this.transform.rotation) as GameObject;
+            NetworkServer.Spawn(e);    
         }       
         yield return null;
+    }
+
+    IEnumerator SetPoints()
+    {
+        yield return new WaitForSeconds(0.2f);
+        points = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
+        StartCoroutine(SpawnEnemy());
     }
 
 }

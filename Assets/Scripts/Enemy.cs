@@ -4,30 +4,38 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Enemy : NetworkBehaviour {
+public abstract class Enemy : NetworkBehaviour {
     public List<GameObject> players = new List<GameObject>();
     public GameObject target;
-    public float speed;
+    protected float speed;
+    public float distanceToStop;
+
 
     // Use this for initialization
     void Start () {
-        speed = GameManager.instance.enemySpeed;
- 
+        SetSpeedGameManager();
     }
 
     // Update is called once per frame
     void Update()
     {
         ChangeTarget();
+        RemoveMissing();
     }
 
     void FixedUpdate()
+    {
+        IA();
+    }
+
+    protected void IA()
     {
         if (!isServer) return;
 
         if (target != null) //&& Vector2.Distance()
         {
-            GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, target.transform.position, speed) );
+            if (Vector2.Distance(transform.position, target.transform.position) > distanceToStop)
+                GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, target.transform.position, speed));
         }
     }
 
@@ -47,13 +55,13 @@ public class Enemy : NetworkBehaviour {
         }
     }
     
-    void ChangeTarget()
+    protected void ChangeTarget()
     {
         target = GetNearPlayer();
 
     }    
 
-    GameObject GetNearPlayer()
+    public GameObject GetNearPlayer()
     {
         GameObject near = null;
         if (players.Count == 0)
@@ -75,5 +83,15 @@ public class Enemy : NetworkBehaviour {
         }
 
         return near;
+    }
+
+    protected void SetSpeedGameManager()
+    {
+        speed = GameManager.instance.enemySpeed;
+    }
+
+    protected void RemoveMissing()
+    {
+        players.RemoveAll(GameObject => GameObject == null);
     }
 }
