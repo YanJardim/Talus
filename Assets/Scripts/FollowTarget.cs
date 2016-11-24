@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class FollowTarget : MonoBehaviour {
+public class FollowTarget : NetworkBehaviour {
+    [SyncVar]
     public Vector3 target;
     public float speed;
     public Rigidbody2D rb;
@@ -20,8 +22,18 @@ public class FollowTarget : MonoBehaviour {
 	}
     void FixedUpdate()
     {
-        //dir = transform.position - target;
-        //rb.velocity = dir.normalized * speed * Time.deltaTime;
-        rb.MovePosition(Vector2.MoveTowards(transform.position, target, speed));
+        dir = target - transform.position;
+
+        if (Vector2.Distance(transform.position, target) > 0.1f)
+        {
+            rb.velocity = dir.normalized * speed * Time.deltaTime;
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            Destroy(this.gameObject);
+        }
+
+        
     }
 }

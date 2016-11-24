@@ -36,11 +36,8 @@ public class Impact : Skill {
 
     public override void Action()
     {
-        if (!isLocalPlayer) return;
         GetComponent<PlayerSkills>().SetCursor(true);
         GetComponent<PlayerSkills>().currentSkill = this;
-        
-
     }
 
 

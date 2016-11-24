@@ -128,7 +128,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012784308572}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58d6ff92b5045b44d954fcb7448d5bef, type: 3}
   m_Name: 
@@ -237,6 +237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillSelected: 0
   currentSkill: {fileID: 0}
+  shot: {fileID: 1000011911978714, guid: 721d39f57070446439b38a4cb76a3926, type: 2}
   skills: []
   cursorSelectedSkill: {fileID: 2800000, guid: e9c0d45ec55b0e246ae91e29f663b280, type: 3}
 --- !u!212 &212000012334378118

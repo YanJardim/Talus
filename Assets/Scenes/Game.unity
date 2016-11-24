@@ -694,7 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 0.03
   spawnRatio: 0
-  skillSpeed: 0.8
+  skillSpeed: 400
   players: []
   gridSize: 0.32
 --- !u!114 &1615409341
@@ -1022,6 +1022,10 @@ Prefab:
         type: 2}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012988925300, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000013519005874, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
