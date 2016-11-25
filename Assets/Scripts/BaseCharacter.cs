@@ -125,7 +125,7 @@ public class BaseCharacter : NetworkBehaviour {
         if (!isServer) return;
 
       
-        print(damagePrefab.GetComponent<ParticleSystem>().duration);
+        //print(damagePrefab.GetComponent<ParticleSystem>().duration);
         InstantiateEffect(damagePrefab, 1f);
        
         currentHp -= amount;       

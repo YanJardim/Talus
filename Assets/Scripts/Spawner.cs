@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class Spawner : NetworkBehaviour {
 
-    public GameObject Enemy;
+    public List<GameObject> enemies = new List<GameObject>();
     private float spawnRatio;
     public List<GameObject> points = new List<GameObject>();
 
@@ -32,7 +32,7 @@ public class Spawner : NetworkBehaviour {
         {            
             yield return new WaitForSeconds(spawnRatio);          
 
-            GameObject e = Instantiate(Enemy, points[Random.Range(0, points.Count)].transform.position, this.transform.rotation) as GameObject;
+            GameObject e = Instantiate(enemies[Random.Range(0, enemies.Count)], points[Random.Range(0, points.Count)].transform.position, this.transform.rotation) as GameObject;
             NetworkServer.Spawn(e);    
         }       
         yield return null;

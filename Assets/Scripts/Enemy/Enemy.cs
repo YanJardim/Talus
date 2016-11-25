@@ -10,14 +10,12 @@ public abstract class Enemy : NetworkBehaviour {
     [SerializeField]
     [SyncVar]
     protected int currentHP;
-    protected bool acho;
+    public bool canShot;
     protected List<GameObject> players = new List<GameObject>();
     public GameObject target;
-    protected float speed;
+    public float speed;
     public float distanceToStop;
-
-
-
+    
 
     // Use this for initialization
     void Start () {
@@ -46,10 +44,10 @@ public abstract class Enemy : NetworkBehaviour {
             if (Vector2.Distance(transform.position, target.transform.position) > distanceToStop)
             {
                 GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, target.transform.position, speed));
-                acho = false;
+                canShot = false;
             }
             else
-                acho = true;
+                canShot = true;
         }
     }
 
