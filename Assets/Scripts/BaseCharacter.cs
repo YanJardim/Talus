@@ -155,4 +155,10 @@ public class BaseCharacter : NetworkBehaviour {
         else
             print("NULL reference to " + effectGameObject.transform.name + " in Basecharacter");
     }
+
+    public void Heal(int amount)
+    {
+        currentHp = currentHp + amount > maxHp ? (int)maxHp : currentHp + amount;
+    }
+    
 }

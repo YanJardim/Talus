@@ -40,7 +40,11 @@ public class Heal : Skill {
     [Command]
     public override void CmdPower(Vector2 direction)
     {
-
+        if (power.transform.name == "Impact") print("PQP");
+        GameObject aux = Instantiate(power, transform.position, power.transform.rotation) as GameObject;
+        NetworkServer.Spawn(aux);
+        aux.GetComponent<FollowTarget>().target = direction;
+        //Destroy(aux, 1.0f);
     }
     
     public new void Action()

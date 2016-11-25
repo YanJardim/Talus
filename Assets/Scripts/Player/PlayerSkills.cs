@@ -14,7 +14,6 @@ public class PlayerSkills : NetworkBehaviour {
     [SerializeField]
     public Skill currentSkill;
 
-    public GameObject shot;
 
     public List<Skill> skills;
 
@@ -68,25 +67,16 @@ public class PlayerSkills : NetworkBehaviour {
                 {
                     
                     currentSkill.power.GetComponent<SkillHit>().localPlayer = this.GetComponent<BaseCharacter>();
-                    
-                    currentSkill.CmdPower(mouse);
-                    
-                    canShoot = false;
-                    currentSkill = null;
+                    currentSkill.CmdPower(target.transform.position);
 
                 }
-                else
-                {
-                    
-                    currentSkill = null;
-                    SetCursor(false);
-                }
-                
-                
+                canShoot = false;
+                //currentSkill = null;
+                SetCursor(false);
+
+
             }
-        }
-
-        
+        }       
 
     }
 
@@ -112,13 +102,9 @@ public class PlayerSkills : NetworkBehaviour {
     //[Command]
     public void CmdFire()
     {
-        Debug.Log("Dentro do Fire");
-        currentSkill.CmdPower(mouse);
-        Debug.Log("Depois dentro do Fire");
 
-        //currentSkill = null;
-        Debug.LogWarning("depois do instantiate");
-       
+        currentSkill.CmdPower(mouse);
+               
     }
 
     [Client]
@@ -129,10 +115,10 @@ public class PlayerSkills : NetworkBehaviour {
             hit = Physics2D.Raycast(mouse, Vector2.zero, 100f, detectLayerMask);
             
             
-            if (hit.collider != null && hit.collider.tag == "Enemy")
+            if (hit.collider != null && hit.collider.tag == currentSkill.targetTag)
             {
-                
-               
+
+                target = hit.collider.gameObject;
                 lastEnemyRend = hit.collider.GetComponent<SpriteRenderer>();
                 lastEnemyRend.color = Color.red;
                 canShoot = true;
@@ -144,6 +130,7 @@ public class PlayerSkills : NetworkBehaviour {
                 {
                     lastEnemyRend.color = originalColor;
                     canShoot = false;
+                    target = null;
                 }
             }
         }
