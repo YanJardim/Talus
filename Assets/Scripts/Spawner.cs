@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class Spawner : NetworkBehaviour {
 
     public GameObject Enemy;
+    public GameObject EnemyRanged;
     private float spawnRatio;
     public List<GameObject> points = new List<GameObject>();
 
