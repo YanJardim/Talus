@@ -40,20 +40,20 @@ public class Impact : Skill {
     [Command]
     public override void CmdPower(Vector2 direction)
     {
-        Debug.Log("Antes do Power");
+       
         GameObject aux = Instantiate(power, transform.position, power.transform.rotation) as GameObject;
         NetworkServer.Spawn(aux);
         aux.GetComponent<FollowTarget>().target = direction;
-        Destroy(aux, 1.0f);
-        Debug.Log("Depois do Power");
+        //Destroy(aux, 1.0f);
+        
     }
 
     public new void Action()
     {
-        Debug.Log("Antes do Action");
+        
         GetComponent<PlayerSkills>().SetCursor(true);
         GetComponent<PlayerSkills>().currentSkill = this;
-        Debug.Log("Depois do Action");
+        
     }
 
     [ClientRpc]

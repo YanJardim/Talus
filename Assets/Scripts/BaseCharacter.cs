@@ -125,7 +125,7 @@ public class BaseCharacter : NetworkBehaviour {
         if (!isServer) return;
 
       
-        print(damagePrefab.GetComponent<ParticleSystem>().duration);
+        //print(damagePrefab.GetComponent<ParticleSystem>().duration);
         InstantiateEffect(damagePrefab, 1f);
        
         currentHp -= amount;       
@@ -155,4 +155,10 @@ public class BaseCharacter : NetworkBehaviour {
         else
             print("NULL reference to " + effectGameObject.transform.name + " in Basecharacter");
     }
+
+    public void Heal(int amount)
+    {
+        currentHp = currentHp + amount > maxHp ? (int)maxHp : currentHp + amount;
+    }
+    
 }

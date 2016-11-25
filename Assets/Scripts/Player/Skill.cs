@@ -16,7 +16,7 @@ public abstract class Skill : NetworkBehaviour {
     public int damage;
     public string targetTag;
 
-    public bool enemyTarget;
+    public bool enemyTarget, heal;
 
     public abstract void SkillBehaviour();
     public abstract void UI();
@@ -27,6 +27,7 @@ public abstract class Skill : NetworkBehaviour {
 
     void Start()
     {
+        if (!isLocalPlayer) return;
         if(power!= null)
             power.GetComponent<SkillHit>().skill = this;
     }

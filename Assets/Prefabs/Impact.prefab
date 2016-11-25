@@ -91,6 +91,7 @@ MonoBehaviour:
   col: {fileID: 0}
   skill: {fileID: 0}
   localPlayer: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!114 &114000012802096116
 MonoBehaviour:
   m_ObjectHideFlags: 1

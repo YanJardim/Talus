@@ -25,7 +25,6 @@ GameObject:
   - 114: {fileID: 114000011836701238}
   - 114: {fileID: 114000010264732688}
   - 60: {fileID: 60000011434419398}
-  - 114: {fileID: 114000013069885260}
   - 114: {fileID: 114000014267556668}
   m_Layer: 0
   m_Name: EnemyRange
@@ -209,21 +208,6 @@ MonoBehaviour:
   m_SnapThreshold: 200
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114000013069885260
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013837225288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb4e6e6e332f3fa41a08ac869b2fccbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  speed: 0
-  rb: {fileID: 0}
-  dir: {x: 0, y: 0}
 --- !u!114 &114000014267556668
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -237,9 +221,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 0
   currentHP: 0
+  canShot: 0
   target: {fileID: 0}
-  distanceToStop: 5
-  Tiro: {fileID: 0}
+  speed: 0
+  distanceToStop: 2
+  bullet: {fileID: 0}
+  cooldown: 0
+  ratio: 0
 --- !u!212 &212000012578909472
 SpriteRenderer:
   m_ObjectHideFlags: 1

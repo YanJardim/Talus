@@ -1365,7 +1365,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a9a212fe813434a80e597512e1819e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 1000012988925300, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
+  enemies:
+  - {fileID: 1000012988925300, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
+  - {fileID: 1000013837225288, guid: bd4617248c86ba141b694c8246709f80, type: 2}
   points:
   - {fileID: 2132545691}
   - {fileID: 1742799210}
@@ -1556,6 +1558,7 @@ MonoBehaviour:
   - {fileID: 1000012988925300, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
   - {fileID: 1000011911978714, guid: 721d39f57070446439b38a4cb76a3926, type: 2}
   - {fileID: 1000013718131428, guid: 223fdb7ab57fbc142a934eec6ea72b78, type: 2}
+  - {fileID: 1000011911978714, guid: 5f00c2f3c6828554ca918b7ddddf09a6, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -1777,7 +1780,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000011370407604, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4.208
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 4000011370407604, guid: ea37c67d271176d47a6160e871fb52f0, type: 2}
       propertyPath: m_LocalPosition.y

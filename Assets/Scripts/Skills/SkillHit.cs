@@ -21,11 +21,18 @@ public class SkillHit : NetworkBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.tag == "Enemy")
+        if (collision.tag == skill.targetTag)
         {
             BaseCharacter enemyBase = collision.gameObject.GetComponent<BaseCharacter>();
             enemyBase.SetLastHit(localPlayer);
-            enemyBase.TakeDamage(skill.damage);
+            if (!skill.heal)
+            {
+                enemyBase.TakeDamage(skill.damage);
+            }
+            else
+            {
+                enemyBase.Heal(skill.damage);
+            }
             
             //CmdTakeDamage(collision.gameObject);
         }
