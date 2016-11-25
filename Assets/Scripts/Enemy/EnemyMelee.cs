@@ -4,7 +4,7 @@ using System.Collections;
 
 public class EnemyMelee : Enemy {
 
-   public bool relando;
+   private bool relando;
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class EnemyMelee : Enemy {
         if(relando == true && other != null )
         {            
             other.gameObject.GetComponent<BaseCharacter>().TakeDamage(10);
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(4.0f);
             StartCoroutine(DeuDano(other.gameObject));
         }       
     }

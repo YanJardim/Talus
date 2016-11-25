@@ -10,8 +10,8 @@ public abstract class Enemy : NetworkBehaviour {
     [SerializeField]
     [SyncVar]
     protected int currentHP;
-
-    private List<GameObject> players = new List<GameObject>();
+    protected bool acho;
+    protected List<GameObject> players = new List<GameObject>();
     public GameObject target;
     protected float speed;
     public float distanceToStop;
@@ -44,7 +44,12 @@ public abstract class Enemy : NetworkBehaviour {
         if (target != null) //&& Vector2.Distance()
         {
             if (Vector2.Distance(transform.position, target.transform.position) > distanceToStop)
+            {
                 GetComponent<Rigidbody2D>().MovePosition(Vector2.MoveTowards(transform.position, target.transform.position, speed));
+                acho = false;
+            }
+            else
+                acho = true;
         }
     }
 
