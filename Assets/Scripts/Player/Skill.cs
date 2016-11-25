@@ -13,8 +13,23 @@ public abstract class Skill : NetworkBehaviour {
 
     public GUIStyle style;
 
+    public int damage;
+    public string targetTag;
+
+    public bool enemyTarget;
+
     public abstract void SkillBehaviour();
     public abstract void UI();
+    public abstract void Apply(GameObject target);
+
+    [Command]
+    public abstract void CmdPower(Vector2 direction);
+
+    void Start()
+    {
+        if(power!= null)
+            power.GetComponent<SkillHit>().skill = this;
+    }
 
     public virtual void Action()
     {

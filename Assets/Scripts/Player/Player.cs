@@ -7,13 +7,16 @@ using UnityEngine.Networking;
 public class Player : NetworkBehaviour
 {
     public float speed;
+    public Camera playerCamera;
+
+    public int maxHp, currentHp;
     
     // Use this for initialization
     void Start()
     {
-        
+        //playerCamera.transform.FindChild("Camera").GetComponent<Camera>();
         GameManager.instance.AddPlayer(this.gameObject);
-
+        currentHp = maxHp;
     }
 
 

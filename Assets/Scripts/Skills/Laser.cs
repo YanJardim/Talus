@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using UnityEngine.Networking;
 
-public class Impact : Skill {
+public class Laser : Skill {
 
 	// Use this for initialization
 	
@@ -32,18 +32,15 @@ public class Impact : Skill {
         }
     }
 
-    public override void Apply(GameObject target)
+    [Command]
+    public override void CmdPower(Vector2 direction)
     {
 
     }
 
-    [Command]
-    public override void CmdPower(Vector2 direction)
+    public override void Apply(GameObject target)
     {
-        GameObject aux = Instantiate(power, transform.position, power.transform.rotation) as GameObject;
-        NetworkServer.Spawn(aux);
-        aux.GetComponent<FollowTarget>().target = direction;
-        Destroy(aux, 1.0f);
+
     }
 
     public new void Action()

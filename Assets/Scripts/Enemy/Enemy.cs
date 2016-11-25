@@ -5,15 +5,24 @@ using System.Collections;
 using System.Collections.Generic;
 
 public abstract class Enemy : NetworkBehaviour {
-    public List<GameObject> players = new List<GameObject>();
+    public int maxHP;
+
+    [SerializeField]
+    [SyncVar]
+    protected int currentHP;
+
+    private List<GameObject> players = new List<GameObject>();
     public GameObject target;
     protected float speed;
     public float distanceToStop;
 
 
+
+
     // Use this for initialization
     void Start () {
         SetSpeedGameManager();
+        currentHP = maxHP;
     }
 
     // Update is called once per frame
@@ -72,7 +81,7 @@ public abstract class Enemy : NetworkBehaviour {
             if (near == null)
                 near = a;
 
-            else
+            else if(target != null)
             {
                 if (Vector2.Distance(transform.position, a.transform.position) <
                         Vector2.Distance(transform.position, target.transform.position))
@@ -94,4 +103,7 @@ public abstract class Enemy : NetworkBehaviour {
     {
         players.RemoveAll(GameObject => GameObject == null);
     }
+
+    
+
 }

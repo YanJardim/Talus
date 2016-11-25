@@ -14,6 +14,7 @@ public class Spawner : NetworkBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        if (!isServer) return;
         spawnRatio = GameManager.instance.spawnRatio;
         StartCoroutine(SetPoints());
         
@@ -28,8 +29,7 @@ public class Spawner : NetworkBehaviour {
     IEnumerator SpawnEnemy()
     {
         while (true)
-        {
-            
+        {            
             yield return new WaitForSeconds(spawnRatio);          
 
             GameObject e = Instantiate(Enemy, points[Random.Range(0, points.Count)].transform.position, this.transform.rotation) as GameObject;
@@ -41,7 +41,7 @@ public class Spawner : NetworkBehaviour {
     IEnumerator SetPoints()
     {
         yield return new WaitForSeconds(0.2f);
-        points = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
+        //points = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
         StartCoroutine(SpawnEnemy());
     }
 

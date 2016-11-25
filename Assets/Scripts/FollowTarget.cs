@@ -5,9 +5,11 @@ using UnityEngine.Networking;
 public class FollowTarget : NetworkBehaviour {
     [SyncVar]
     public Vector3 target;
+
     public float speed;
     public Rigidbody2D rb;
     public Vector2 dir;
+
     // Use this for initialization
     void Start () {
         
@@ -33,7 +35,6 @@ public class FollowTarget : NetworkBehaviour {
             rb.velocity = Vector2.zero;
             Destroy(this.gameObject);
         }
-
-        
-    }
+               
+    }    
 }

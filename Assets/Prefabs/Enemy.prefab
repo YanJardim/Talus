@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013557430496}
   - 58: {fileID: 58000010664442052}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Detect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,13 +37,14 @@ GameObject:
   - 4: {fileID: 4000011370407604}
   - 212: {fileID: 212000010699362116}
   - 50: {fileID: 50000013586255880}
-  - 61: {fileID: 61000012110811962}
   - 114: {fileID: 114000012468725670}
   - 114: {fileID: 114000013048610362}
   - 114: {fileID: 114000012504515200}
+  - 114: {fileID: 114000010770349284}
+  - 60: {fileID: 60000013063733354}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012988925300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.16, y: 0, z: 0}
+  m_LocalPosition: {x: -1.2, y: 0, z: 0.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -105,9 +106,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.4
---- !u!61 &61000012110811962
-BoxCollider2D:
+  m_Radius: 2.5
+--- !u!60 &60000013063733354
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -118,8 +119,43 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 0.65, y: 0.67}
+  m_Points:
+    m_Paths:
+    - - {x: 0.22, y: 0.01}
+      - {x: 0.11, y: 0.26}
+      - {x: 0.01, y: 0.29999998}
+      - {x: 0, y: 0.29999998}
+      - {x: -0.07, y: 0.32}
+      - {x: -0.16, y: 0.32}
+      - {x: -0.25, y: 0.29}
+      - {x: -0.31, y: 0.14999999}
+      - {x: -0.31, y: -0.02}
+      - {x: -0.19999999, y: -0.26999998}
+      - {x: -0.049999997, y: -0.32}
+      - {x: 0.22, y: -0.32}
+      - {x: 0.24, y: -0.25}
+      - {x: 0.31, y: -0.13}
+      - {x: 0.31, y: 0.02}
+--- !u!114 &114000010770349284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012988925300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d221dbdb09e6a04f88eacd4c5400126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  currentHp: 0
+  xp: 0
+  xpToNextLevel: 0
+  maxHp: 0
+  levelUpPrefab: {fileID: 1000013718131428, guid: 223fdb7ab57fbc142a934eec6ea72b78,
+    type: 2}
+  damagePrefab: {fileID: 1000011065585884, guid: 688beee34f1c8ba4b9875ef6d02fc700,
+    type: 2}
 --- !u!114 &114000012468725670
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -163,7 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62bd8044d07800644b599ea4d31561fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  maxHP: 100
+  currentHP: 0
   target: {fileID: 0}
   distanceToStop: 0.2
 --- !u!114 &114000013048610362

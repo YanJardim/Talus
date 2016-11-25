@@ -11,7 +11,9 @@ public class PlayerSkills : NetworkBehaviour {
     [SyncVar]
     Vector3 mouse;
 
+    [SerializeField]
     public Skill currentSkill;
+
     public GameObject shot;
 
     public List<Skill> skills;
@@ -26,36 +28,44 @@ public class PlayerSkills : NetworkBehaviour {
     private SpriteRenderer lastEnemyRend;
     private Color originalColor = Color.white;
     private LayerMask detectLayerMask;
+
+    private Camera playerCamera;
+    public bool canShoot;
+
+    public GameObject a;
     // Use this for initialization
     void Start() {
-        skillSelected = true;
+        skillSelected = false;
         detectLayerMask = 1 << 8;
         detectLayerMask = ~detectLayerMask;
+        canShoot = false;
+        playerCamera = GetComponent<Player>().playerCamera;
     }
 
     // Update is called once per frame
+    [Client]
     void Update() {
-        if (!isLocalPlayer) return;
+        //if (!isLocalPlayer) return;
 
-        mouse = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        mouse = playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+        SelectEnemy();
 
-        
 
         if (Input.GetMouseButtonDown(1) && skillSelected)
         {
-            //SetCursor(false);
+            SetCursor(false);
         }
 
         if (skillSelected)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                
+               
                 CmdFire(mouse);
             }
         }
 
-        SelectEnemy();
+        
 
     }
 
@@ -72,21 +82,29 @@ public class PlayerSkills : NetworkBehaviour {
         else
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            if (lastEnemyRend != null) lastEnemyRend.color = originalColor;
         }
         skillSelected = b;
     }
 
     [Command]
-    public void CmdFire(Vector2 direction)
+    public void CmdFire(Vector2 dir)
     {
-        GameObject aux = Instantiate(shot, transform.position, shot.transform.rotation) as GameObject;
-             
 
+        if (canShoot)
+        {
+            currentSkill.power.GetComponent<SkillHit>().localPlayer = this.GetComponent<BaseCharacter>();
+            currentSkill.CmdPower(dir);
+            SetCursor(false);
+            //currentSkill = null;
+            canShoot = false;
 
-        aux.GetComponent<FollowTarget>().target = direction;
-        NetworkServer.Spawn(aux);
-        Destroy(aux, 1.0f);
-        //SetCursor(false);
+        }
+        else
+        {
+            SetCursor(false);
+            currentSkill = null;
+        }
     }
 
     [Client]
@@ -94,48 +112,30 @@ public class PlayerSkills : NetworkBehaviour {
     {
         if (skillSelected)
         {
-            //Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             hit = Physics2D.Raycast(mouse, Vector2.zero, 100f, detectLayerMask);
-            //hit = Physics2D.Linecast(rayPos, transform.position);
-            Debug.DrawRay(transform.position, hit.point, Color.yellow);
-            if (hit.collider != null)
+            
+            
+            if (hit.collider != null && hit.collider.tag == "Enemy")
             {
-                if (hit.collider.tag == "Enemy") //&& hit.collider.isTrigger == false)
-                {
-
-
-                    lastEnemyRend = hit.collider.GetComponent<SpriteRenderer>();
-
-                    lastEnemyRend.color = Color.red;
-                    //ChangeEnemyColor();
-                }
-
-
+                
+               
+                lastEnemyRend = hit.collider.GetComponent<SpriteRenderer>();
+                lastEnemyRend.color = Color.red;
+                canShoot = true;
+                
             }
             else
             {
                 if (lastEnemyRend != null)
                 {
                     lastEnemyRend.color = originalColor;
+                    canShoot = false;
                 }
             }
         }
 
 
     }
-
-    /*[Client]
-    void ChangeEnemyColor()
-    {
-        lastEnemyColor = lastEnemyRend.color;
-        if (inside)
-        {
-
-            lastEnemyRend.color = Color.red;
-
-        }
-        else lastEnemyRend.color = lastEnemyColor;
-    }*/
 
     
  }
