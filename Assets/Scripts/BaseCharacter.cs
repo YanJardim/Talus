@@ -12,7 +12,7 @@ public class BaseCharacter : NetworkBehaviour {
 
     private float modifier;
     [SerializeField]
-    private float maxHp;
+    public float maxHp;
 
     private BaseCharacter lastHit;
 

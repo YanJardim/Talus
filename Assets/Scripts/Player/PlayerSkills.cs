@@ -35,6 +35,8 @@ public class PlayerSkills : NetworkBehaviour {
     public bool canShoot;
 
     public GameObject a;
+
+    
     // Use this for initialization
     void Start() {
         skillSelected = false;
