@@ -29,7 +29,10 @@ public class PlayerSkills : NetworkBehaviour {
     private Color originalColor = Color.white;
     private LayerMask detectLayerMask;
 
+    //private BaseCharacter targetBase;
+
     private Camera playerCamera;
+
     public bool canShoot;
 
     public GameObject a;
@@ -43,9 +46,9 @@ public class PlayerSkills : NetworkBehaviour {
     }
 
     // Update is called once per frame
-    [Client]
+
     void Update() {
-        //if (!isLocalPlayer) return;
+        if (!isLocalPlayer) return;
 
         mouse = playerCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         SelectEnemy();
@@ -60,8 +63,26 @@ public class PlayerSkills : NetworkBehaviour {
         {
             if (Input.GetMouseButtonDown(0))
             {
-               
-                CmdFire(mouse);
+                
+                if (canShoot && currentSkill != null)
+                {
+                    
+                    currentSkill.power.GetComponent<SkillHit>().localPlayer = this.GetComponent<BaseCharacter>();
+                    
+                    currentSkill.CmdPower(mouse);
+                    
+                    canShoot = false;
+                    currentSkill = null;
+
+                }
+                else
+                {
+                    
+                    currentSkill = null;
+                    SetCursor(false);
+                }
+                
+                
             }
         }
 
@@ -69,6 +90,7 @@ public class PlayerSkills : NetworkBehaviour {
 
     }
 
+    //[Client]
     public void SetCursor(bool b)
     {
         if (!isLocalPlayer) return;
@@ -87,24 +109,16 @@ public class PlayerSkills : NetworkBehaviour {
         skillSelected = b;
     }
 
-    [Command]
-    public void CmdFire(Vector2 dir)
+    //[Command]
+    public void CmdFire()
     {
+        Debug.Log("Dentro do Fire");
+        currentSkill.CmdPower(mouse);
+        Debug.Log("Depois dentro do Fire");
 
-        if (canShoot)
-        {
-            currentSkill.power.GetComponent<SkillHit>().localPlayer = this.GetComponent<BaseCharacter>();
-            currentSkill.CmdPower(dir);
-            SetCursor(false);
-            //currentSkill = null;
-            canShoot = false;
-
-        }
-        else
-        {
-            SetCursor(false);
-            currentSkill = null;
-        }
+        //currentSkill = null;
+        Debug.LogWarning("depois do instantiate");
+       
     }
 
     [Client]

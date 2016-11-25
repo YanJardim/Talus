@@ -6,7 +6,7 @@ public class SkillHit : NetworkBehaviour {
     public GameObject col;
     public Skill skill;
 
-    public BaseCharacter localPlayer;
+    public BaseCharacter localPlayer, enemy;
 
     // Use this for initialization
     void Start () {
@@ -27,7 +27,6 @@ public class SkillHit : NetworkBehaviour {
             enemyBase.SetLastHit(localPlayer);
             enemyBase.TakeDamage(skill.damage);
             
-
             //CmdTakeDamage(collision.gameObject);
         }
     }
